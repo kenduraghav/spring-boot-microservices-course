@@ -1,13 +1,16 @@
 name: Catalog Service
 
-'on':
+on:
   push:
-    paths:
-      - catalog-service/**
     branches:
       - 'main'
+    paths:
+      - 'catalog-service/**'
   pull_request:
-    branches: [main]
+    branches:
+      - 'main'
+    paths:
+      - 'catalog-service/**'
 
 jobs:
   build:
