@@ -1,5 +1,6 @@
 package com.example.bookstore.catalog;
 
-public class CatalogRestController {
+import org.springframework.web.bind.annotation.RestController;
 
-}
+@RestController
+public class CatalogRestController {}
