@@ -14,7 +14,11 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
-      WORKING_DIR: ./catalog-service
+      working-directory: ./catalog-service
+      DOCKER_IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/bookstore-catalog-service
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
 
     steps:
       - name: Checkout code
@@ -28,11 +32,9 @@ jobs:
           cache: 'maven'
 
       - name: Make Maven wrapper executable
-        working-directory: ${{ env.WORKING_DIR }}
         run: chmod +x mvnw
 
       - name: Build catalog-service
-        working-directory: ${{ env.WORKING_DIR }}
         run: ./mvnw -ntp verify
 
       - if: ${{ github.ref == 'refs/heads/main'}}
@@ -44,6 +46,6 @@ jobs:
 
       - if: ${{ github.ref == 'refs/heads/main'}}
         name: Build and Publish docker image
-        run:
+        run: |
           ./mvnw spring-boot:build-image -DskipTests
-          docker push $$ {{ secrets.DOCKERHUB_USERNAME }}/bookstore-catalog-service
+          docker push $DOCKER_IMAGE_NAME
