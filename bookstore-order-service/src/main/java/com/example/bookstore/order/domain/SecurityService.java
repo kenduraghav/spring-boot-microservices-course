@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SecurityService {
-	
-	public String getCurrentUser() {
-		return "testUser";
-	}
+
+    public String getCurrentUser() {
+        return "testUser";
+    }
 }

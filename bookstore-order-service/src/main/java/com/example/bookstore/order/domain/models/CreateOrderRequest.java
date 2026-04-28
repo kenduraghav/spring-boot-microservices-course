@@ -1,13 +1,10 @@
 package com.example.bookstore.order.domain.models;
 
-import java.util.Set;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import java.util.Set;
 
 public record CreateOrderRequest(
-		@Valid @NotEmpty(message = "Items cannot be empty") Set<OrderItem> items,
-		@Valid Customer customer,
-		@Valid Address deliveryAddress) {
-
-}
+        @Valid @NotEmpty(message = "Items cannot be empty") Set<OrderItem> items,
+        @Valid Customer customer,
+        @Valid Address deliveryAddress) {}
