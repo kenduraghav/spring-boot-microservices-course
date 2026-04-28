@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
@@ -21,6 +22,7 @@ public class BookstoreOrderServiceApplication {
     }
 
     @Bean
+    @Profile("!test")
     ApplicationRunner runner(ApplicationContext ctx, ConnectionFactory connectionFactory) {
         return args -> {
             log.info("RabbitMQConfig bean present: {}", ctx.containsBean("rabbitMQConfig"));
