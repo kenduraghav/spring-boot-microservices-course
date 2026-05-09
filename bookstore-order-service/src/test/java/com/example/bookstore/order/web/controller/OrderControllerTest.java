@@ -17,6 +17,8 @@ class OrderControllerTest extends AbstractIT {
 
         @Test
         void shouldCreateOrderSuccessfully() {
+            mockGetProductByCode("P1001", "Laptop", 75000.50);
+            mockGetProductByCode("P2002", "Wireless Mouse", 1500.00);
             var payload =
                     """
 										{
