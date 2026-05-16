@@ -10,9 +10,11 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
+@EnableScheduling
 public class BookstoreOrderServiceApplication {
 
     private static final Logger log = LoggerFactory.getLogger(BookstoreOrderServiceApplication.class);
@@ -25,12 +27,6 @@ public class BookstoreOrderServiceApplication {
     @Profile("!test")
     ApplicationRunner runner(ApplicationContext ctx, ConnectionFactory connectionFactory) {
         return args -> {
-            log.info("RabbitMQConfig bean present: {}", ctx.containsBean("rabbitMQConfig"));
-            log.info("Exchange bean present: {}", ctx.containsBean("exchange"));
-            log.info("newOrdersQueue bean present: {}", ctx.containsBean("newOrdersQueue"));
-            log.info("RabbitTemplate bean present: {}", ctx.containsBean("rabbitTemplate"));
-            log.info("RabbitAdmin bean present: {}", ctx.containsBean("rabbitAdmin"));
-
             // Add this part
             try {
                 var connection = connectionFactory.createConnection();
