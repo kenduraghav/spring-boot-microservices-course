@@ -3,10 +3,11 @@ package com.example.bookstore.order.domain.models;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public record OrderCreatedEvent(
+public record OrderErrorEvent(
         String eventId,
         String orderNumber,
         Set<OrderItem> items,
         Customer customer,
-        Address deliveryAddress,
-        LocalDateTime createdAt) {}
+        Address address,
+        String errorMessage,
+        LocalDateTime dateUpdated) {}

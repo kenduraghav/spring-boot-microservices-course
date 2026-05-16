@@ -1,5 +1,6 @@
 package com.example.bookstore.order;
 
+import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ConfigurationPropertiesScan
 @EnableScheduling
+@EnableSchedulerLock(defaultLockAtMostFor = "10m")
 public class BookstoreOrderServiceApplication {
 
     private static final Logger log = LoggerFactory.getLogger(BookstoreOrderServiceApplication.class);
