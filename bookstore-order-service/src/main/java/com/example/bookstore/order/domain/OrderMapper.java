@@ -3,6 +3,7 @@ package com.example.bookstore.order.domain;
 import com.example.bookstore.order.domain.models.CreateOrderRequest;
 import com.example.bookstore.order.domain.models.OrderItem;
 import com.example.bookstore.order.domain.models.OrderStatus;
+import com.example.bookstore.order.web.controller.OrderDetailsDTO;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -28,5 +29,16 @@ class OrderMapper {
         }
         newOrder.setItems(items);
         return newOrder;
+    }
+
+    static OrderDetailsDTO toOrderDetailsDTO(OrderEntity order) {
+        Set<OrderItem> items = new HashSet<>();
+        for (OrderItemEntity itemEntity : order.getItems()) {
+            OrderItem item = new OrderItem(
+                    itemEntity.getCode(), itemEntity.getName(), itemEntity.getPrice(), itemEntity.getQuantity());
+            items.add(item);
+        }
+        return new OrderDetailsDTO(
+                order.getOrderNumber(), items, order.getStatus(), order.getCustomer(), order.getAddress());
     }
 }

@@ -4,6 +4,8 @@ import com.example.bookstore.order.domain.models.CreateOrderRequest;
 import com.example.bookstore.order.domain.models.CreateOrderResponse;
 import com.example.bookstore.order.domain.models.OrderCreatedEvent;
 import com.example.bookstore.order.domain.models.OrderStatus;
+import com.example.bookstore.order.domain.models.OrderSummaryDTO;
+import com.example.bookstore.order.web.controller.OrderDetailsDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.slf4j.Logger;
@@ -48,6 +50,18 @@ public class OrderService {
         for (OrderEntity order : newOrders) {
             this.processOrder(order);
         }
+    }
+
+    public List<OrderSummaryDTO> getOrdersForUser(String currentUser) {
+        return orderRepository.findByUserName(currentUser);
+    }
+
+    public OrderDetailsDTO getUserOrderDetails(String orderNumber, String currentUser) {
+        OrderEntity order = orderRepository
+                .findUserOrderDetails(orderNumber, currentUser)
+                .orElseThrow(() -> new OrderNotFoundException(
+                        "Order not found for order number: " + orderNumber + " and user: " + currentUser));
+        return OrderMapper.toOrderDetailsDTO(order);
     }
 
     private void processOrder(OrderEntity order) {
