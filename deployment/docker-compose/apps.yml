@@ -29,7 +29,7 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest 
       - RABBITMQ_PASSWORD=guest 
-      - ORDERS_CATALOG_SERVICE_URL=http://catalog-service:8081
+      - ORDERS_CATALOG_SERVICE_URL=http://bookstore-api-gateway:8989/catalog
       - DB_URL=jdbc:postgresql://order-db:5432/postgres
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
@@ -70,6 +70,19 @@ services:
           condition: service_healthy
         mailhog:
           condition: service_started
+      deploy:
+        resources:
+          limits:
+            memory: 700m
+
+  bookstore-api-gateway:
+      image: kenduraghav/bookstore-api-gateway
+      container_name: bookstore-api-gateway
+      environment:
+        - SPRING_PROFILES_ACTIVE=docker        - CATALOG_SERVICE_URL=http://catalog-service:8081        - ORDER_SERVICE_URL=http://bookstore-order-service:8082
+      ports:
+        - "8989:8989"
+      restart: unless-stopped
       deploy:
         resources:
           limits:

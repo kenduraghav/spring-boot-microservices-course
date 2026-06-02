@@ -19,6 +19,7 @@
 		<module>catalog-service</module>
 		<module>bookstore-order-service</module>
 		<module>notification-service</module>
+		<module>bookstore-api-gateway</module>
 	</modules>
 	
 	<build>
