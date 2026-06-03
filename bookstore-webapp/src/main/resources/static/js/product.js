@@ -13,7 +13,10 @@ document.addEventListener('alpine:init', () => {
 				console.log('Products loaded:', resp);
 				this.products = resp;
 			});
-		}		
+		},
+		addToCart (product){
+			addProductToCart(product);
+		}	
 	}));
 		
 });
