@@ -1,9 +1,8 @@
 package com.example.bookstore.order.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record OrderDetailsDTO(
         String orderNumber, Set<OrderItem> items, OrderStatus status, Customer customer, Address address) {

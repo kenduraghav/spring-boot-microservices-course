@@ -79,9 +79,25 @@ services:
       image: kenduraghav/bookstore-api-gateway
       container_name: bookstore-api-gateway
       environment:
-        - SPRING_PROFILES_ACTIVE=docker        - CATALOG_SERVICE_URL=http://catalog-service:8081        - ORDER_SERVICE_URL=http://bookstore-order-service:8082
+        - SPRING_PROFILES_ACTIVE=docker
+        - CATALOG_SERVICE_URL=http://catalog-service:8081
+        - ORDER_SERVICE_URL=http://bookstore-order-service:8082
       ports:
         - "8989:8989"
+      restart: unless-stopped
+      deploy:
+        resources:
+          limits:
+            memory: 700m
+          
+  bookstore-webapp:
+      image: kenduraghav/bookstore-webapp
+      container_name: bookstore-webapp
+      environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - BOOKSTORE_API_GATEWAY_URL=http://bookstore-api-gateway:8989
+      ports:
+        - "8080:8080"
       restart: unless-stopped
       deploy:
         resources:
