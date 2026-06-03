@@ -1,7 +1,9 @@
 package com.example.bookstore.webapp.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 class ProductController {
@@ -13,7 +15,8 @@ class ProductController {
 	}
 	
 	@GetMapping("/products")
-	String products() {
+	String products(@RequestParam(name="page", defaultValue="1") int pageNo,Model model) {
+		model.addAttribute("pageNo", pageNo);
 		return "products";
 	}
 }

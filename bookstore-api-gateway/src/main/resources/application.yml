@@ -44,6 +44,8 @@ spring:
                           allowed-methods: "*"
                           allowed-headers: "*"
                           allow-credentials: false
+            default-filters:
+              - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credential Access-Control-Allow-Methods Access-Control-Allow-Headers RETAIN_FIRST
 
   mvc:
       problemdetails:
