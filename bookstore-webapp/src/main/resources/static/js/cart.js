@@ -38,16 +38,16 @@ document.addEventListener('alpine:init', () => {
             //console.log("Order ", order);
 
             $.ajax ({
-                url: 'http://localhost:8989/orders/api/orders',
+                url: '/api/orders',
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
                 data : JSON.stringify(order),
                 success: (resp) => {
-                    console.log("Order Resp:", resp)
+                    //console.log("Order Resp:", resp)
                     this.removeCart();
-                    alert("Order placed successfully")
-                    //window.location = "/orders/"+resp.orderNumber;
+                    //alert("Order placed successfully")
+                    window.location = "/orders/"+resp.orderNumber;
                 }, error: (err) => {
                     console.log("Order Creation Error:", err)
                     alert("Order creation failed")

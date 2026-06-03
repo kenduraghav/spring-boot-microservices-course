@@ -6,14 +6,18 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
-import com.example.bookstore.order.AbstractIT;
-import com.example.bookstore.order.domain.models.OrderSummaryDTO;
-import io.restassured.common.mapper.TypeRef;
-import io.restassured.http.ContentType;
 import java.util.List;
+
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
+
+import com.example.bookstore.order.AbstractIT;
+import com.example.bookstore.order.domain.models.OrderDetailsDTO;
+import com.example.bookstore.order.domain.models.OrderSummaryDTO;
+
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.http.ContentType;
 
 @Sql("/test-orders-data.sql")
 class OrderControllerTest extends AbstractIT {

@@ -1,17 +1,19 @@
 package com.example.bookstore.order.domain;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.example.bookstore.order.domain.models.CreateOrderRequest;
 import com.example.bookstore.order.domain.models.CreateOrderResponse;
 import com.example.bookstore.order.domain.models.OrderCreatedEvent;
 import com.example.bookstore.order.domain.models.OrderStatus;
 import com.example.bookstore.order.domain.models.OrderSummaryDTO;
-import com.example.bookstore.order.web.controller.OrderDetailsDTO;
+
 import jakarta.validation.Valid;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -56,7 +58,7 @@ public class OrderService {
         return orderRepository.findByUserName(currentUser);
     }
 
-    public OrderDetailsDTO getUserOrderDetails(String orderNumber, String currentUser) {
+    public com.example.bookstore.order.domain.models.OrderDetailsDTO getUserOrderDetails(String orderNumber, String currentUser) {
         OrderEntity order = orderRepository
                 .findUserOrderDetails(orderNumber, currentUser)
                 .orElseThrow(() -> new OrderNotFoundException(
