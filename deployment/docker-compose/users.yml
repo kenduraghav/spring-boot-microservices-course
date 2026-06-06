@@ -1,0 +1,28 @@
+- sub: raghav
+  email: raghav@bookstore.local
+  preferred_username: raghav
+  roles:
+    - ADMIN
+    - USER
+  idClaims:
+    name: Raghav
+    given_name: raghav
+    family_name: User
+  accessClaims:
+    roles:
+      - ADMIN
+      - USER
+
+- sub: testuser
+  email: testuser@bookstore.local
+  preferred_username: testuser
+  roles:
+    - ADMIN
+    - USER
+  idClaims:
+    name: Test User
+    given_name: Test user
+    family_name: User
+  accessClaims:
+    roles:
+      - USER

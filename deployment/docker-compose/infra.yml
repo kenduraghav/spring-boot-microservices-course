@@ -86,3 +86,21 @@ services:
       resources:
         limits:
           memory: 500m
+
+  oidc-provider-mock:
+    image: ghcr.io/geigerzaehler/oidc-provider-mock:latest
+    container_name: oidc-provider-mock
+    ports:
+      - "9400:9400"
+    command: ["--host", "0.0.0.0", "--port", "9400", "--user-claims-file", "/config/users.yml"]
+    volumes:
+      - ./users.yml:/config/users.yml:ro
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:9400/.well-known/openid-configuration"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 256m
