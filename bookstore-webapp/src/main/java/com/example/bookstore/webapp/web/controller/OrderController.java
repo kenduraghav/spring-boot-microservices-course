@@ -6,11 +6,9 @@ import com.example.bookstore.webapp.clients.orders.OrderDetailsDTO;
 import com.example.bookstore.webapp.clients.orders.OrderServiceClient;
 import com.example.bookstore.webapp.clients.orders.OrderSummaryDTO;
 import com.example.bookstore.webapp.service.SecurityHelper;
-
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -30,7 +28,7 @@ class OrderController {
 
     OrderController(OrderServiceClient orderServiceClient, SecurityHelper securityHelper) {
         this.orderServiceClient = orderServiceClient;
-		this.securityHelper = securityHelper;
+        this.securityHelper = securityHelper;
     }
 
     @GetMapping("/cart")
@@ -53,7 +51,7 @@ class OrderController {
     @ResponseBody
     OrderConfirmationDTO createOrder(@Valid @RequestBody CreateOrderRequest orderRequest) {
         log.info("Creating order: {}", orderRequest);
-        return orderServiceClient.createOrder(getHeaders(),orderRequest);
+        return orderServiceClient.createOrder(getHeaders(), orderRequest);
     }
 
     @GetMapping("/api/orders/{orderNumber}")
@@ -70,10 +68,10 @@ class OrderController {
         return orderServiceClient.getOrders(getHeaders());
     }
 
-	private Map<String, String> getHeaders() {
-		String accessToken = securityHelper.getAccessToken();
-        Map<String, String> headers = Map.of("Authorization", "Bearer "+accessToken);
-        log.info("headers: "+ headers.get("Authorization"));
-		return headers;
-	}
+    private Map<String, String> getHeaders() {
+        String accessToken = securityHelper.getAccessToken();
+        Map<String, String> headers = Map.of("Authorization", "Bearer " + accessToken);
+        log.info("headers: " + headers.get("Authorization"));
+        return headers;
+    }
 }

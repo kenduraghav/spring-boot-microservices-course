@@ -7,7 +7,6 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,8 +25,8 @@ public class SecurityHelper {
             return null;
         }
 
-        OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest
-                .withClientRegistrationId(authToken.getAuthorizedClientRegistrationId())
+        OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest.withClientRegistrationId(
+                        authToken.getAuthorizedClientRegistrationId())
                 .principal(authentication)
                 .build();
 
@@ -39,6 +38,5 @@ public class SecurityHelper {
 
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
         return oidcUser.getIdToken().getTokenValue();
-
     }
 }
