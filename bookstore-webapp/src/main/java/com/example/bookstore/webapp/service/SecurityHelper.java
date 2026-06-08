@@ -1,10 +1,10 @@
 package com.example.bookstore.webapp.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityHelper {
 
-    private final OAuth2AuthorizedClientManager authorizedClientManager;
+    private static final Logger log = LoggerFactory.getLogger(SecurityHelper.class);
 
-    public SecurityHelper(OAuth2AuthorizedClientManager authorizedClientManager) {
-        this.authorizedClientManager = authorizedClientManager;
+    private final OAuth2AuthorizedClientService authorizedClientService;
+
+    public SecurityHelper(OAuth2AuthorizedClientService authorizedClientService) {
+        this.authorizedClientService = authorizedClientService;
     }
 
     public String getAccessToken() {
@@ -25,16 +27,14 @@ public class SecurityHelper {
             return null;
         }
 
-        OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest.withClientRegistrationId(
-                        authToken.getAuthorizedClientRegistrationId())
-                .principal(authentication)
-                .build();
-
-        OAuth2AuthorizedClient authorizedClient = authorizedClientManager.authorize(authorizeRequest);
-
-        if (authorizedClient == null || authorizedClient.getAccessToken() == null) {
-            return null;
-        }
+        //        OAuth2AuthorizedClient authorizedClient =
+        // authorizedClientService.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(),
+        // authToken.getName());
+        //
+        //        if (authorizedClient == null || authorizedClient.getAccessToken() == null) {
+        //            return null;
+        //        }
+        //        log.info("accessToken : " + authorizedClient.getAccessToken().getTokenValue());
 
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
         return oidcUser.getIdToken().getTokenValue();
