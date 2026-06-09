@@ -13,7 +13,7 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.wiremock.integrations.testcontainers.WireMockContainer;
 
-@Import(TestcontainersConfiguration.class)
+@Import(value = {TestcontainersConfiguration.class, TestSecurityConfig.class})
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public abstract class AbstractIT {
 

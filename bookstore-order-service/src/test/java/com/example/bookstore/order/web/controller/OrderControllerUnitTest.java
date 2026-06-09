@@ -6,6 +6,7 @@ import static com.example.bookstore.order.testdata.TestDataFactory.orderWithEmpt
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Named.named;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import com.example.bookstore.order.domain.OrderService;
 import com.example.bookstore.order.domain.SecurityService;
@@ -19,6 +20,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
@@ -46,10 +48,12 @@ class OrderControllerUnitTest {
 
     @ParameterizedTest(name = "[{index}]- {0}")
     @MethodSource("createOrderRequestProvider")
+    @WithMockUser
     void shouldReturnBadRequest_givenInvalidOrderRequest(CreateOrderRequest request) throws Exception {
         System.out.println("Order Request:" + request);
         var result = mockMvc.post()
                 .uri("/api/orders")
+                .with(csrf())
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(request))
                 .exchange();

@@ -60,6 +60,7 @@ class OrderControllerTest extends AbstractIT {
 										""";
 
             given().contentType(ContentType.JSON)
+                    .header("Authorization", "Bearer test-token")
                     .body(payload)
                     .when()
                     .post("/api/orders")
@@ -103,6 +104,7 @@ class OrderControllerTest extends AbstractIT {
 					}
 										""";
             given().contentType(ContentType.JSON)
+                    .header("Authorization", "Bearer test-token")
                     .body(payload)
                     .when()
                     .post("/api/orders")
@@ -117,6 +119,7 @@ class OrderControllerTest extends AbstractIT {
         @Test
         void shouldReturnOrderSummarySuccessfully() {
             List<OrderSummaryDTO> orders = given().contentType(ContentType.JSON)
+                    .header("Authorization", "Bearer test-token")
                     .when()
                     .get("/api/orders")
                     .then()
@@ -137,6 +140,7 @@ class OrderControllerTest extends AbstractIT {
         void shouldReturnOrderDetailsSuccessfully_givenValidOrderNumber() {
             String orderNumber = "ORD-001";
             OrderDetailsDTO order = given().contentType(ContentType.JSON)
+                    .header("Authorization", "Bearer test-token")
                     .when()
                     .get("/api/orders/{orderNumber}", orderNumber)
                     .then()
